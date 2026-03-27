@@ -73,20 +73,72 @@
  */
 export function applyBaseStyle(element, color, size) {
   // Your code here
+  if (!element) return null;
+
+  element.style.backgroundColor = color;
+  element.style.width = size + "px";
+  element.style.height = size + "px";
+  element.style.borderRadius = "50%";
+
+  return element;
 }
 
 export function setPatternStyle(element, styles) {
   // Your code here
+  if (!element) return -1;
+  if (!styles || typeof styles !== "object") return 0;
+
+  let count = 0;
+
+  for (const key in styles) {
+    if (Object.hasOwn(styles, key)) {
+      element.style[key] = styles[key];
+      count++;
+    }
+  }
+
+  return count;
 }
 
 export function getComputedStyles(element, properties) {
   // Your code here
+  if (!element) return null;
+  if (!Array.isArray(properties)) return null;
+
+  const result = {};
+
+  properties.forEach(prop => {
+    result[prop] = element.style[prop] || "";
+  });
+
+  return result;
 }
 
 export function toggleVisibility(element) {
   // Your code here
+  if (!element) return null;
+
+  if (element.style.display === "none") {
+    element.style.display = "";
+  } else {
+    element.style.display = "none";
+  }
+
+  return element.style.display;
 }
 
 export function animateElement(element, frames) {
   // Your code here
+  if (!element) return -1;
+  if (!Array.isArray(frames) || frames.length === 0) return -1;
+
+  const lastFrame = frames[frames.length - 1];
+
+  for (const key in lastFrame) {
+    if (Object.hasOwn(lastFrame, key)) {
+      element.style[key] = lastFrame[key];
+    }
+  }
+
+  return frames.length;
 }
